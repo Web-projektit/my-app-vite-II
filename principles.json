@@ -1,0 +1,205 @@
+{
+    "principles": [
+      {
+        "id": 1,
+        "name": "KISS (Keep It Simple, Stupid)",
+        "description": "Write code that is as simple and clear as possible. Complexity should be avoided unless absolutely necessary."
+      },
+      {
+        "id": 2,
+        "name": "DRY (Don't Repeat Yourself)",
+        "description": "Avoid duplicating code by abstracting repeated functionality into reusable components."
+      },
+      {
+        "id": 3,
+        "name": "YAGNI (You Aren't Gonna Need It)",
+        "description": "Don’t add features or code until they are actually needed."
+      },
+      {
+        "id": 4,
+        "name": "Separation of Concerns",
+        "description": "Divide your code into distinct sections, each handling a specific responsibility."
+      },
+      {
+        "id": 5,
+        "name": "Single Responsibility Principle (SRP)",
+        "description": "A class or module should have only one reason to change, meaning it should have a single, well-defined responsibility."
+      },
+      {
+        "id": 6,
+        "name": "Open/Closed Principle (OCP)",
+        "description": "Code should be open for extension but closed for modification, allowing new functionality to be added without changing existing code."
+      },
+      {
+        "id": 7,
+        "name": "Liskov Substitution Principle (LSP)",
+        "description": "Objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program."
+      },
+      {
+        "id": 8,
+        "name": "Interface Segregation Principle (ISP)",
+        "description": "No client should be forced to depend on methods it does not use. Split large interfaces into smaller, more specific ones."
+      },
+      {
+        "id": 9,
+        "name": "Dependency Inversion Principle (DIP)",
+        "description": "High-level modules should not depend on low-level modules. Both should depend on abstractions."
+      },
+      {
+        "id": 10,
+        "name": "Composition Over Inheritance",
+        "description": "Favor composition (object collaboration) over inheritance to make code more flexible and easier to maintain."
+      },
+      {
+        "id": 11,
+        "name": "Principle of Least Astonishment (POLA)",
+        "description": "Code should behave in a way that least surprises users and developers, following intuitive expectations."
+      },
+      {
+        "id": 12,
+        "name": "Code for Readability",
+        "description": "Write code as if the next developer (or your future self) will have to understand it at a glance."
+      },
+      {
+        "id": 13,
+        "name": "Fail Fast",
+        "description": "Detect and handle errors as early as possible to minimize cascading failures."
+      },
+      {
+        "id": 14,
+        "name": "Minimize Coupling and Maximize Cohesion",
+        "description": "Reduce dependencies between modules (low coupling) and ensure that each module has well-focused functionality (high cohesion)."
+      },
+      {
+        "id": 15,
+        "name": "Avoid Premature Optimization",
+        "description": "Focus on correctness and readability first; optimize for performance only when necessary."
+      },
+      {
+        "id": 16,
+        "name": "Test-Driven Development (TDD)",
+        "description": "Write tests before writing code, ensuring that your code meets requirements and is easy to refactor."
+      },
+      {
+        "id": 17,
+        "name": "Encapsulation",
+        "description": "Restrict access to an object’s internal state and expose only what is necessary through well-defined interfaces."
+      },
+      {
+        "id": 18,
+        "name": "Use Meaningful Names",
+        "description": "Variables, functions, and classes should have descriptive names that convey their purpose and make the code self-explanatory."
+      },
+      {
+        "id": 19,
+        "name": "Keep Methods Short",
+        "description": "Methods and functions should be concise, performing one clear task, and ideally fit on one screen without scrolling."
+      },
+      {
+        "id": 20,
+        "name": "Write Self-Documenting Code",
+        "description": "Code should be written in a way that its structure and behavior can be understood without excessive comments."
+      },
+      {
+        "id": 21,
+        "name": "Murphy's Law of Software",
+        "description": "Anything that can go wrong, will go wrong. Always anticipate edge cases and test thoroughly."
+      },
+      {
+        "id": 22,
+        "name": "Pareto Principle (80/20 Rule)",
+        "description": "80% of the results come from 20% of the effort. Focus on the most impactful parts of the code or features."
+      },
+      {
+        "id": 23,
+        "name": "Boy Scout Rule",
+        "description": "Always leave the code better than you found it. Refactor and improve code whenever you touch it."
+      },
+      {
+        "id": 24,
+        "name": "Law of Demeter",
+        "description": "A module should only communicate with its immediate dependencies, reducing coupling and improving modularity."
+      },
+      {
+        "id": 25,
+        "name": "Unix Philosophy",
+        "description": "Write programs that do one thing and do it well. Combine small, focused programs to achieve larger tasks."
+      },
+      {
+        "id": 26,
+        "name": "Don’t Make Me Think",
+        "description": "Code and interfaces should be intuitive and easy to understand without requiring additional explanation."
+      },
+      {
+        "id": 27,
+        "name": "The Principle of Least Privilege",
+        "description": "Provide only the minimum level of access necessary for functionality, reducing security risks."
+      },
+      {
+        "id": 28,
+        "name": "Code Smells",
+        "description": "Be on the lookout for 'smells' (hints of poor design or potential issues) like long methods, large classes, or repeated code."
+      },
+      {
+        "id": 29,
+        "name": "Zero-One-Infinity Rule",
+        "description": "Systems should handle zero, one, or an arbitrary number of elements, but nothing in between."
+      },
+      {
+        "id": 30,
+        "name": "Refactor Early, Refactor Often",
+        "description": "Continuously improve code quality by restructuring and simplifying existing code without altering functionality."
+      },
+      {
+        "id": 31,
+        "name": "Duck Typing Principle",
+        "description": "If it looks like a duck, swims like a duck, and quacks like a duck, it’s a duck. Focus on an object’s behavior, not its type."
+      },
+      {
+        "id": 32,
+        "name": "Worse is Better",
+        "description": "A simple solution that works and can be improved incrementally is better than a complex, perfect solution that delays delivery."
+      },
+      {
+        "id": 33,
+        "name": "Convention Over Configuration",
+        "description": "Reduce decision-making by relying on agreed-upon defaults instead of custom configurations."
+      },
+      {
+        "id": 34,
+        "name": "Avoid Magic Numbers",
+        "description": "Replace hard-coded numbers with named constants to make the code more readable and easier to maintain."
+      },
+      {
+        "id": 35,
+        "name": "You Can’t Have Perfect Security",
+        "description": "There’s no such thing as perfect security; aim for reasonable levels of security by managing risks effectively."
+      },
+      {
+        "id": 36,
+        "name": "Fail Gracefully",
+        "description": "When errors occur, handle them in a way that minimizes disruption to the user and avoids system crashes."
+      },
+      {
+        "id": 37,
+        "name": "The Rule of Three",
+        "description": "Refactor only after something has been repeated three times, ensuring patterns are worth abstracting."
+      },
+      {
+        "id": 38,
+        "name": "First Rule of Optimization",
+        "description": "Don’t do it. Premature optimization can complicate the code. Optimize only when bottlenecks are identified."
+      },
+      {
+        "id": 39,
+        "name": "The Robustness Principle (Postel’s Law)",
+        "description": "Be conservative in what you do, and be liberal in what you accept from others. This applies to interfaces and APIs."
+      },
+      {
+        "id": 40,
+        "name": "Refactor Fearlessly",
+        "description": "Refactor code as needed, with proper testing and review, to improve maintainability and scalability."
+      }
+    ]
+  }
+  
