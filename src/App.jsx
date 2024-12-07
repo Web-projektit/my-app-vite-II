@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, useRouteError, NavLink, Outlet } from 'react-router-dom'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, useRouteError, NavLink, Outlet } from 'react-router-dom'
 import Nav from './Navbar'
 import { Anecdotes, anecdotesLoader } from './Anecdotes' 
 import { Principles, principlesLoader } from './Principles'
@@ -27,7 +27,9 @@ function Layout() {
   return (
     <>
       <Navbar />
+      <main>
       <Outlet /> {/* Render the child route's element here */}
+      </main> 
       <Footer />
     </>
   );
@@ -44,22 +46,16 @@ const ErrorBoundary = () => {
   )
 }
 
-const router = createBrowserRouter([
-  {
-    path: "/", // Root route
-    element: <Layout />, // Wrap child routes with Layout (Navbar included)
-    errorElement: <ErrorBoundary />, // Parent error boundary
-    children: [
-      { path: "/", element: <Home /> },
-      { path: "/about", element: <About /> },
-      { path: "/contact", element: <Contact /> },
-      { path: "/anecdotes", element: <Anecdotes />, loader: anecdotesLoader, errorElement: <ErrorBoundary /> },
-      { path: "/principles", element: <Principles />, loader: principlesLoader, errorElement: <ErrorBoundary /> }
-      ]
-  }
-  ])
-
-
+const router = createBrowserRouter( 
+  createRoutesFromElements(
+  <Route path="/" element={<Layout />} errorElement={<ErrorBoundary />}>
+    <Route index element={<Home />} />
+    <Route path="contact" element={<Contact />} />
+    <Route path="about" element={<About />} />
+    <Route path="anecdotes" element={<Anecdotes />} loader={anecdotesLoader} />
+    <Route path="principles" element={<Principles />} loader={principlesLoader} />
+  </Route>
+  ))
 
 const App = () => {
   return (
