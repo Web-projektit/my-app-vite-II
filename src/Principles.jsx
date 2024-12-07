@@ -10,11 +10,16 @@ const url = 'http://localhost:3002/principles'
 const title = 'Principles of Software Engineering'
 
 const principlesLoader = async () => {
-  
+  try {
+    console.log('Principles loader executed')
     const response = await axios.get('http://localhost:3002/principles')
-    //throw new Error("Invalid JSON format in response");
+    // throw new Error("Tiedon hakeminen epäonnistui");
     return response.data
-  
+  } 
+  catch (error) {
+    console.error('Virhe:', error)
+    throw error
+    }
 }
 
 const poista = async (id, revalidate) => {
@@ -23,9 +28,10 @@ const poista = async (id, revalidate) => {
     const response = await axios.delete(`${url}/${id}`)
     console.log('Poisto onnistui:', response)
     revalidate() // Refresh the data
-  } catch (error) {
+    } 
+  catch (error) {
     console.error('Poisto epäonnistui', error)
-  }
+    }
 }
 
 const NoteList = ({ notes, revalidate }) => {

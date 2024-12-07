@@ -1,23 +1,40 @@
-import { useEffect, useState } from 'react'
-import { Anekdootti,random } from './anekdootit'
+import { useState } from 'react'
+import { Button, CircularProgress } from '@mui/material';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import { Anekdootti, random } from './anekdootit'
 import axios from 'axios'
 import './App.css'
+import { useLoaderData, useRevalidator } from 'react-router-dom'
 
-//const name = 'Kauko'
-//const age = 25
-const poista = (id,notes,setNotes) => {
+const url = 'http://localhost:3001/notes'
+
+const anecdotesLoader = async () => {
+  try {
+    console.log('Anecdotes loader executed')
+    const response = await axios.get(url)
+    // throw new Error("Tiedon hakeminen epäonnistui");
+    return response.data
+  } 
+  catch (error) {
+    console.error('Virhe:', error)
+    throw error
+    }
+}
+
+
+const poista = async (id, revalidate) => {
   console.log('Poista:', id)
-  axios.delete(`http://localhost:3001/notes/${id}`)
-  .then(response => {
-    console.log('Poisto onnistui:',response)
-    setNotes(notes.filter(n => n.id !== id))
-    })
-  .catch (error => {
-    console.error('Poisto epäonnistui',error)
-    })
-  }
-
-
+  try {
+    const response = await axios.delete(`${url}/${id}`)
+    console.log('Poisto onnistui:', response)
+    revalidate() // Refresh the data
+    } 
+  catch (error) {
+    console.error('Poisto epäonnistui', error)
+    }
+}
 
 const Hello = ({ name,age }) => {
   console.log('Hello executed')
@@ -65,47 +82,46 @@ const TitleForm = ({ title, setTitle }) => {
   )
 }
 
-const NoteList = ({ notes,setNotes }) => {
+const NoteList = ({ notes,revalidate }) => {
   return (
     <div>
     <h2>Notes</h2>
-    <ul>
+    <List sx={{ listStyle: "decimal", pl: 4 }}>
       {notes.map((note, index) => (
-        <li key={index}>{note.content} <button onClick={() => poista(note.id,notes,setNotes)}>Poista</button></li>
+        <ListItem sx={{ display: "list-item" }} key={index}>
+          <ListItemText primary={<>{note.content} <Button color="primary" onClick={() => poista(note.id, revalidate)}>Poista</Button></>}>
+          </ListItemText>
+          <ListItemText secondary={note.important ? "Important" : ""}/>
+        </ListItem>
       ))}
-    </ul>
+    </List>
+
     </div>
   )
 }
 
 const Anecdotes = () => {
+  const notes = useLoaderData()
+  const revalidate = useRevalidator().revalidate
+
   const [name, setName] = useState('John')
   const [age, setAge] = useState(20)
   const [count, setCount] = useState(0)
   const [title, setTitle] = useState('Vite-sovellus')
   const [selected, setSelected] = useState(random())
-  const [notes, setNotes] = useState([])
-
-  console.log('App executed')
-
-    
-     
-  useEffect(() => {
-    axios.get('http://localhost:3001/notes')
-      .then(response => {
-        console.log('promise fulfilled:', response.data)
-        setNotes(response.data)
-        })
-      .catch(error => {
-        console.error('Error fetching notes:', error)
-        })
-      }, [])
   
+  console.log('App executed')
+  if (!notes) {
+    return <div>Error: Data not found</div>
+  }
+
+
   return (
     <>
       <h1>{title}</h1>
+      {notes.length ? <NoteList notes={notes} revalidate={revalidate} /> : <CircularProgress />}
+ 
       <Hello nimi={name} auto='Ford' age={age}/>
-      <NoteList notes={notes} setNotes={setNotes}/>
       <Anekdootti/>
       <Form name={name} setName={setName} age={age} setAge={setAge} />
       {/*<TitleForm title={title} setTitle={setTitle} />*/}
@@ -116,11 +132,9 @@ const Anecdotes = () => {
         <button onClick={() => setCount(0)}>
           Reset
         </button>
-
-
       </div>
     </>
   )
 }
 
-export { Anecdotes }
+export { Anecdotes, anecdotesLoader }
