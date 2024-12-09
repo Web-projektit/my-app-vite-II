@@ -1,21 +1,37 @@
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, useRouteError, NavLink, Outlet } from 'react-router-dom'
-import Nav from './Navbar'
+import { useState } from 'react'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, useRouteError, Outlet } from 'react-router-dom'
+import {
+  Nav,NavLinks,NavItem as NavLink,
+  Logo,MenuButton } from "./Navbar.style";
 import { Anecdotes, anecdotesLoader } from './Anecdotes' 
 import { Principles, principlesLoader } from './Principles'
+import { FaBars,FaTimes } from "react-icons/fa"
 
 const Home = () => <h2>Home</h2>
 const About = () => <h2>About</h2>
 const Contact = () => <h2>Contact</h2>
 
-const Navbar = () => (
+const Navbar = () => {
+  const [openmenu, setOpenmenu] = useState(false)
+  let menu = openmenu ? "true" : "false"
+  console.log("rendering Navbar")
+
+  return (
   <Nav>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/about">About</NavLink>
-      <NavLink to="/contact">Contact</NavLink>
-      <NavLink to="/anecdotes">Anecdotes</NavLink>
-      <NavLink to="/principles">Principles</NavLink>
+    <Logo src={''}></Logo>
+    <NavLinks menu={menu}>    
+      <NavLink to="/" activeclassname="active">Home</NavLink>
+      <NavLink to="/about" activeclassname="active">About</NavLink>
+      <NavLink to="/contact" activeclassname="active">Contact</NavLink>
+      <NavLink to="/anecdotes" activeclassname="active">Anecdotes</NavLink>
+      <NavLink to="/principles" activeclassname="active">Principles</NavLink>
+    </NavLinks>
+    <MenuButton onClick={() => setOpenmenu(!openmenu)}>
+    {openmenu ? <FaTimes/> : <FaBars/>}
+    </MenuButton>
   </Nav>
 )
+}
 
 const Footer = () => (
   <footer>
