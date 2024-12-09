@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  /*padding: 2rem;*/
   text-align: center;
 }
 
@@ -16,6 +16,11 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+
+.ag-header-cell-label {
+  justify-content: center;
 }
 
 @keyframes logo-spin {
@@ -39,9 +44,4 @@
 
 .read-the-docs {
   color: #888;
-}
-
-.active {
-  font-weight: bold;
-  color: red;
 }

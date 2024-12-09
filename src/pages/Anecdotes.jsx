@@ -3,9 +3,9 @@ import { Button, CircularProgress } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { Anekdootti, random } from './anekdootit'
+import { Anekdootti, random } from '../anekdootit'
 import axios from 'axios'
-import './App.css'
+import '../App.css'
 import { useLoaderData, useRevalidator } from 'react-router-dom'
 
 const url = 'http://localhost:3001/notes'
