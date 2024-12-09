@@ -36,6 +36,10 @@ position: sticky;
 top: 100vh;
 }
 
+main {
+padding: 1rem;
+}
+
 footer {
 margin-top: 1rem;
 padding: 0.25rem;

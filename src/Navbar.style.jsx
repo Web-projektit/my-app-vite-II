@@ -4,11 +4,15 @@ export const Nav = styled.nav`
   background-color: #333;
   color: white;
   font-size: 1.25rem;
-  min-height: 4.25rem; /* Suljettu korkeus */
-  padding: 1rem 1rem 1rem 80px; /* Avattu täyte */
-`;
+  padding: 1rem 1rem 1rem 80px;
+  /* Palkille korkeus tyhjällä NavLinks-divillä */
+  padding-top: ${(props) => (props.menu ? "1rem;" : "3rem;")};
+  @media (min-width: 700px) { padding-top: 1rem;}
+ `;
 
-export const NavLinks = styled.div`
+export const NavLinks = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['menu'].includes(prop),
+})`
   /* Huom. props = css-tyyli */
   display: ${(props) => (props.menu ? props.menu : "none")};
   flex-direction: column;
@@ -31,6 +35,7 @@ export const Logo = styled.img`
 export const MenuButton = styled.button`
   color: white;
   background-color: transparent;
+  border: none;
   height: 70px;
   width: 70px;
   font-size: 1.75rem;
@@ -40,10 +45,7 @@ export const MenuButton = styled.button`
   top: 0;
   @media (min-width: 700px) {
     display: none;
-  }
-  &:hover {
-    border: none;
-  }
+  }      
 `;
 
 export default Nav;
