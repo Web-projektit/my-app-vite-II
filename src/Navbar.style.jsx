@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const Nav = styled.nav`
   display: flex;
-  justify-content: flex-start; /* Ensure space between items */
-  align-items: flex-start; /* Center items vertically */
+  justify-content: flex-start; /* Osat vasemmalle vierekkäin*/
+  align-items: flex-start; /* Tasaa osat ylälaitaan */
   background-color: #333;
   color: white;
   font-size: 1.25rem;
@@ -29,7 +29,7 @@ export const Logo = styled.img`
 `;
 
 export const MenuButton = styled.button`
-  margin-left: auto;
+  margin-left: auto; /* Hampurislaismenu oikeaan laitaan */
   color: white;
   background-color: transparent;
   border: none;
