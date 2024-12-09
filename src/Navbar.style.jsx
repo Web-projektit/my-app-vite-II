@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 
 export const Nav = styled.nav`
+  display: flex;
+  justify-content: flex-start; /* Ensure space between items */
+  align-items: flex-start; /* Center items vertically */
   background-color: #333;
   color: white;
   font-size: 1.25rem;
-  padding: 1rem 1rem 1rem 80px;
-  /* Palkille korkeus tyhjällä NavLinks-divillä */
-  padding-top: ${(props) => (props.menu ? "1rem;" : "3rem;")};
-  @media (min-width: 700px) { padding-top: 1rem;}
- `;
+`;
 
 export const NavLinks = styled.div.withConfig({
   shouldForwardProp: (prop) => !['menu'].includes(prop),
@@ -17,6 +16,7 @@ export const NavLinks = styled.div.withConfig({
   display: ${(props) => (props.menu ? props.menu : "none")};
   flex-direction: column;
   align-items: flex-start;
+  padding: 1rem;
   @media (min-width: 700px) {
     display: flex;
     flex-direction: row;
@@ -25,24 +25,15 @@ export const NavLinks = styled.div.withConfig({
 `;
 
 export const Logo = styled.img`
-  margin: 0;
-  width: 70px;
-  position: absolute;
-  top: 0;
-  left: 0;
+  height: 70px;
 `;
 
 export const MenuButton = styled.button`
+  margin-left: auto;
   color: white;
   background-color: transparent;
   border: none;
-  height: 70px;
-  width: 70px;
   font-size: 1.75rem;
-  padding: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
   @media (min-width: 700px) {
     display: none;
   }      
