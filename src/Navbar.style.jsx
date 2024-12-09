@@ -12,7 +12,7 @@ export const Nav = styled.nav`
 
 export const NavLinks = styled.div.withConfig({
   shouldForwardProp: (prop) => !['menu'].includes(prop),
-})`
+  })`
   /* Huom. props = css-tyyli */
   display: ${(props) => (props.menu ? props.menu : "none")};
   flex-direction: column;
