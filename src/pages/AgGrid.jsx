@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLoaderData, useRevalidator } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+
 import { Error } from '../Form.style';
 import { CircularProgress } from '@mui/material';
 import { FaEdit, FaTrashAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -15,6 +16,7 @@ import '../App.css';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
+import { ButtonGroup } from '@mui/material';
 
 const tyhjaTodo = { description: '', date: '', status: '' };
 
@@ -210,43 +212,42 @@ export const AgGrid = () => {
         width: '600px',
         display: 'flex', 
         flexDirection: 'column',
-        justifyItems: 'flex-start', 
         marginTop: '20px' }} 
         onSubmit={handleSubmit(onSubmit)}>
         <TextField
           placeholder="Description"
-          {...register('description', { required: true })}
-          fullWidth
+          {...register('description', { required: true })}     
         />
         {errors.description && <Error>Description on pakollinen</Error>}
         <TextField
           type="date"
           {...register('date', { required: true })}
-          fullWidth
           style={{ marginTop: '10px' }}
         />
         {errors.date && <Error>Date on pakollinen</Error>}
-
         <TextField
           placeholder="Status"
           {...register('status', { required: true })}
-          fullWidth
           style={{ marginTop: '10px' }}
         />
         {errors.status && <Error>Status on pakollinen</Error>}
-
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ 
-            marginTop: '20px', 
-            marginLeft: 'auto',
-            marginRight: '2rem',
-            width: '200px' }}
-        >
-          {editMode ? 'Tallenna Muokkaus' : 'Lisää Rivi'}
-        </Button>
+      
+        <ButtonGroup style={{ marginTop: '20px', marginRight: '2rem', alignSelf: 'flex-end' }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            type="button"
+            onClick={() => reset({ ...tyhjaTodo, date: new Date().toISOString('fi-FI').split('T')[0] })}
+            style={{ marginRight: '10px' }}>
+            Tyhjennä
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit">
+            {editMode ? 'Tallenna Muokkaus' : 'Lisää Rivi'}
+          </Button>
+        </ButtonGroup>
       </form>
       </div>
     </>
