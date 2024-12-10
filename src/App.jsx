@@ -17,7 +17,7 @@ const Navbar = () => {
   console.log("rendering Navbar,menu:",menu)
 
   return (
-  <Nav menu={menu}>
+  <Nav>
     <Logo src={logo}></Logo>
     <NavLinks menu={menu}>
       <NavLink to="/" activeclassname="active">Home</NavLink>
