@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { useLoaderData, useRevalidator } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { Error } from '../Form.style';
 import { CircularProgress } from '@mui/material';
 import { FaEdit, FaTrashAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import axios from 'axios';
 import { firebaseDatabaseUrl } from '../components/constants';
 import { firebaseDatabaseUrlItem } from '../components/constants';
+import { useForm } from 'react-hook-form';
 
 import '../App.css';
 
@@ -32,6 +34,8 @@ export const AgGrid = () => {
   const todos = useLoaderData()
   const revalidate = useRevalidator().revalidate
 
+  const { register, handleSubmit, reset, setError,formState: { errors }} = useForm();
+
   const [todo, setTodo] = useState({
     description: '', 
     date: new Date().toLocaleDateString('fi-FI'),
@@ -53,16 +57,22 @@ export const AgGrid = () => {
     setTodo(prev => ({ ...prev, [name]: value }));
   }
 
-  const handleAddRow = () => {
+  const onSubmit = (data) => {
+    if (editMode) {
+      handleSaveEdit(data);
+    } else {
+      handleAddRow(data);
+    }
+  };
+
+  const handleAddRow = (data) => {
     setLoading(true);
-    axios.post(firebaseDatabaseUrl, todo)
+    axios.post(firebaseDatabaseUrl, data)
       .then((response) => {
         console.log("Lisätty rivi Firebaseen", response.data);
-        //const newTodo = { ...todo, id: response.data.name };
-        //console.log("Uusi rivi:",newTodo);
-        //todos.push(newTodo); // Lisätään uusi rivi paikallisesti
         setTodo(tyhjaTodo);
-        revalidate(); // Päivitetään data
+        reset({ ...tyhjaTodo, date: new Date().toLocaleDateString('fi-FI') });
+        revalidate();
       })
       .catch((error) => {
         console.error("Virhe lisättäessä riviä Firebaseen", error);
@@ -74,22 +84,27 @@ export const AgGrid = () => {
 
   const handleEdit = data => {
     console.log("Muokataan riviä:", data);
-    setTodo({ description: data.description, date: data.date, status: data.status });
+    const date = new Date(data.date);
+    date.setDate(date.getDate() + 1); // Correct the date by adding one day
+    const oldTodo = { 
+      description: data.description, 
+      date: date.toISOString().split('T')[0], // Format date correctly
+      status: data.status 
+    }; 
+    reset(oldTodo);
     setEditMode(true);
     setCurrentId(data.id);
   };
 
-  const handleSaveEdit = () => {
+  const handleSaveEdit = (data) => {
     setLoading(true);
-    axios.put(`${firebaseDatabaseUrlItem}/${currentId}.json`, todo)
+    axios.put(`${firebaseDatabaseUrlItem}/${currentId}.json`, data)
       .then(() => {
-        //const updatedTodo = { ...todo, id: currentId };
-        //const index = todos.findIndex((item) => item.id === currentId);
-        //todos[index] = updatedTodo; // Päivitetään rivi paikallisesti
-        setTodo(tyhjaTodo);
+        //setTodo(tyhjaTodo);
+        reset({ ...tyhjaTodo});
         setEditMode(false);
         setCurrentId(null);
-        revalidate(); // Päivitetään data
+        revalidate();
       })
       .catch((error) => {
         console.error("Virhe muokattaessa riviä Firebaseen", error);
@@ -104,8 +119,6 @@ export const AgGrid = () => {
       setLoading(true);
       axios.delete(`${firebaseDatabaseUrlItem}/${data.id}.json`)
         .then(() => {
-          //const newRowData = rowData.filter(item => item.id !== data.id);
-          //rowData.splice(0, rowData.length, ...newRowData); // Poistetaan rivi paikallisesti
           revalidate(); // Päivitetään data
         })
         .catch((error) => {
@@ -193,35 +206,44 @@ export const AgGrid = () => {
       </div>
       {/* Lomake rivin lisäämiseen / muokkaamiseen */}
       <div>
-      <form style={{ marginTop: '20px' }}>
+      <form style={{ 
+        width: '600px',
+        display: 'flex', 
+        flexDirection: 'column',
+        justifyItems: 'flex-start', 
+        marginTop: '20px' }} 
+        onSubmit={handleSubmit(onSubmit)}>
         <TextField
-          label="Description"
-          name="description"
-          value={todo.description}
-          onChange={handleChange}
+          placeholder="Description"
+          {...register('description', { required: true })}
           fullWidth
         />
+        {errors.description && <Error>Description on pakollinen</Error>}
         <TextField
-          name="date"
           type="date"
-          value={todo.date}
-          onChange={handleChange}
+          {...register('date', { required: true })}
           fullWidth
           style={{ marginTop: '10px' }}
         />
+        {errors.date && <Error>Date on pakollinen</Error>}
+
         <TextField
-          label="Status"
-          name="status"
-          value={todo.status}
-          onChange={handleChange}
+          placeholder="Status"
+          {...register('status', { required: true })}
           fullWidth
           style={{ marginTop: '10px' }}
         />
+        {errors.status && <Error>Status on pakollinen</Error>}
+
         <Button
           variant="contained"
           color="primary"
-          onClick={editMode ? handleSaveEdit : handleAddRow}
-          style={{ marginTop: '20px' }}
+          type="submit"
+          style={{ 
+            marginTop: '20px', 
+            marginLeft: 'auto',
+            marginRight: '2rem',
+            width: '200px' }}
         >
           {editMode ? 'Tallenna Muokkaus' : 'Lisää Rivi'}
         </Button>
