@@ -39,4 +39,17 @@ export const MenuButton = styled.button`
   }      
 `;
 
+export const Button = styled.button`
+color: white;    
+background-color: #333;
+border: none;
+padding: 0rem 1rem;
+font-size: 1.25rem;
+cursor: pointer;
+&:hover {
+  background-color: #555;
+}
+
+`;
+
 export default Nav;
