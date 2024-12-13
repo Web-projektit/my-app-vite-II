@@ -50,8 +50,8 @@ export const Login = () => {
                 setError("password",{ type: 'tunnusvirhe' })
                 return
                 }   
-            const json = await response.json();
-            console.log("FetchLogin, json:",json);
+            const json = await response.json(); 
+            console.log("FetchLogin, json:",response);
             if (json.success === false) {
                 console.log("FetchLogin, palvelinvirhe:",json.message);
                 setError("password",{ type: 'palvelinvirhe' })
