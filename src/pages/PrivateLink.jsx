@@ -38,8 +38,8 @@ export function LoginCloseButton() {
        */
       //navigate(location.pathname, { replace: true });
       //window.history.replaceState({}, document.title)
-      navigate(location.pathname, {});
-      setAuthTokens()
+      setAuthTokens(null,navigate)
+      //navigate(location.pathname, {});
       }
 
     /* Huom. tämä toimii Kirjaudu-painikkeen napsautuksesta */  

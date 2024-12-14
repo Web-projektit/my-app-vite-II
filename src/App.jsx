@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, useRouteError, Outlet, NavLink } from 'react-router-dom'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, useRouteError, Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { AuthContext } from './context/Auth';  
 import { Nav,NavLinks,Logo,MenuButton } from "./Navbar.style";
 import { Anecdotes, anecdotesLoader } from './pages/Anecdotes' 
@@ -88,21 +88,29 @@ const App = () => {
   const [authConfirm, setAuthConfirm] = useState(localStorage.getItem('confirm'));
   //const [error, setError] = useState(null);
   //const [loading, setLoading] = useState(false);
+ /* Tyhjennetään state poistuttessa */
 
-  const setTokens = data => {
+
+  const setTokens = (data,navigate) => {
+    /* Huom. kutsu pelkällä datalla toimii. */
     console.log('setTokens:',data)
     /* Huom. logout kutsuu setTokens-funktiota ilman dataa,
        jolloin authTokens-alkuarvoksi tulisi merkkijono 'undefined'. 
        Tässä removeItem tuottaa authTokens-alkuarvoksi null,
        jolloin sen boolean arvo on oikein false. */
-    if (data) sessionStorage.setItem("tokens", JSON.stringify(data));
+    if (data) {
+      sessionStorage.setItem("tokens", JSON.stringify(data));
+      }
     else {
       closeFetch();
       sessionStorage.removeItem("tokens");
+      console.log('setTokens,logout')
       /* 
-      Pyritään estetään kirjautuminen samalle sivulle, jolta poistuttiin
+      Pyritään estämään kirjautuminen samalle sivulle, jolta poistuttiin
       tyhjentämällä react-router-domin useLocation state. Samoin
-      myös Kirjaudu-painikkeen yhteydessä. 
+      myös Kirjaudu-painikkeen yhteydessä.  Uudessa router-ratkaisussa
+      useNavigate on kutsuttava router-kontekstissa, joten
+      navigate on tuotu parametrina logout-funktiosta.
       */  
       navigate('/',{})  
       }   
@@ -123,4 +131,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;

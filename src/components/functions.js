@@ -1,7 +1,15 @@
-import { csrfUrl } from './constants';
+import { csrfUrl, logoutUrl } from './constants';
 
-export const closeFetch = () => {
-  console.log('closeFetch')
+export const closeFetch = async () => {
+    console.log('closeFetch');
+    try {
+        const response = await fetch(logoutUrl, { method: 'GET', credentials: 'include' });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 export const loaderCsrfToken = async (setError, setLoading) => {
