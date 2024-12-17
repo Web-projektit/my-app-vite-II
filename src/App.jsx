@@ -14,6 +14,8 @@ import { FaBars,FaTimes } from "react-icons/fa"
 import logo from './assets/omniavalkea_eitaustaa.png'
 import { loaderCsrfToken } from './components/functions'    
 
+const basename="/projektit_react/react-sovellusmalli"
+
 const Home = () => <h2>Home</h2>
 const About = () => <h2>About</h2>
 const Contact = () => <h2>Contact</h2>
@@ -82,10 +84,12 @@ const router = createBrowserRouter(
     <Route path="aggrid" element={<AgGrid />} loader={aggridLoader} />
     <Route path="login" element={<Login/>} loader={loaderCsrfToken} />
     <Route path="signup" element={<Signup/>} loader={loaderCsrfToken} />
-    <Route path="/confirmed" element={<Confirmed/>}/>
-    <Route path="*" element={<h2>404</h2>} />
+    <Route path="confirmed" element={<Confirmed/>}/>
+    <Route path="*" element={<Home />} />
   </Route>
-  ))
+  ), {
+    basename: basename, // Aseta basename
+  })
 
 const App = () => {
   const [authTokens, setAuthTokens] = useState(sessionStorage.getItem('tokens'));

@@ -52,15 +52,15 @@ export const Login = () => {
                 return
                 }   
             const json = await response.json(); 
-            console.log("FetchLogin, json:",response);
-            if (json.success === false) {
+            console.log("FetchLogin, json:",json);
+            if (json.success === false && json.confirmed === undefined) {
                 console.log("FetchLogin, palvelinvirhe:",json.message);
-                setError("password",{ type: 'palvelinvirhe' })
+                setError("password",{ type: 'palvelinvirhe', message: json.message })
                 return
                 }
             setAuthTokens("OK")
             if (json.confirmed) setAuthConfirm('CONFIRMED')
-            else setAuthConfirm()  
+            else if (json.confirmed === false) setAuthConfirm()  
             setSignUpResponse(json)
             } 
         catch (error) {
@@ -72,7 +72,7 @@ export const Login = () => {
 
     const { state } = useLocation()
     //console.log(`Login,message:${ilmoitus.message},loggedIn:${loggedIn}`)
-    if (authTokens) {
+    if (authTokens && signUpResponse.confirmed === undefined) {
         const referer = state?.location.pathname || '/' 
         const search = state?.location.search || '' 
         const to = `${referer}${search}`
@@ -94,8 +94,7 @@ export const Login = () => {
         <Link to="/confirm">Voit pyytää uutta sähköpostiosoitteesi vahvistusviestiä tästä.</Link>
         </div>
         )    
-            
-
+ 
     return (
         <Box margin='auto' maxWidth='650px' display='flex' flexDirection='column' alignItems='flex-start'>
         {/*<Logo src={logoImg} />*/}
@@ -129,7 +128,7 @@ export const Login = () => {
         />
         {errors.password?.type === 'required' && <Error>Anna salasana</Error>} 
         {errors.password?.type === 'tunnusvirhe' && <Error>Väärä käyttäjätunnus tai salasana!</Error> }
-        {errors.password?.type === 'palvelinvirhe' && <Error>Kirjautuminen epäonnistui!</Error> }
+        {errors.password?.type === 'palvelinvirhe' && <Error>{errors.password.message}</Error> }
         </Box>
         </Box>
         </fieldset>
