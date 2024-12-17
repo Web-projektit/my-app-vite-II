@@ -12,7 +12,7 @@ export const Signup = () => {
     const { authTokens,setAuthTokens,setAuthConfirm } = useAuth();
     const { register, handleSubmit, setError, watch, formState: { errors } } = useForm();
     const { csrfToken, error } = useLoaderData();
-    const [ signUpEmail, setSignupEmail ] = useState(false);
+    const [ signUpEmail, setSignUpEmail ] = useState(false);
     const [ loading, setLoading ] = useState(true);
     const password = useRef({});
     password.current = watch("password", "");
@@ -64,28 +64,29 @@ export const Signup = () => {
             const json = await response.json()
             if (json.success) {
                 console.log("fetchSignup, success:",json);
-                setSignupEmail(data.email)
+                setSignUpEmail(data.email)
             }
             else {
                 console.log("fetchSignup, virheet:", json.errors);
                 setErrors(json.errors)
             }   
         } 
-        catch(e) {
-            setError('apiError',{ message:e.message })
+        catch(error) {
+            setError('apiError',{ message:error })
+            }
         }
-    }
-     
+
     if (signUpEmail)
-    return (
+        return (
         <div>
         <h2>Rekisteröityminen onnistui!</h2>
-        <p>
+        <p style={{'textAlign':'left'}}>
           Kiitos rekisteröitymisestä. Sähköpostiviesti on lähetetty antamaasi sähköpostiosoitteeseen <strong>{signUpEmail}</strong> sen vahvistamiseksi.
           Tarkista saapunut sähköpostisi ja seuraa viestissä annettuja ohjeita tilisi aktivoimiseksi.
         </p>
-        <p>
-          Kun sähköpostiosoitteesi on vahvistettu, voit kirjautua palveluun tästä: <Link to="/login">Kirjautuminen</Link>.
+        <p style={{'textAlign':'left'}}>
+          Kun sähköpostiosoitteesi on vahvistettu, voit kirjautua palveluun tästä:<br/>
+          <Link to="/login">Kirjautuminen</Link>.
         </p>
         </div>
           //return <Navigate to='/login'/>;

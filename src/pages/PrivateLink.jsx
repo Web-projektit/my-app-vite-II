@@ -2,6 +2,8 @@ import React from "react"
 import { useNavigate,useLocation,NavLink  } from "react-router-dom"
 import { useAuth } from "../context/Auth"
 import { Button } from "../Navbar.style"
+import { ButtonGroup } from "reactstrap";
+import { Box } from "@mui/material";
 
 export function PrivateLink({ ...rest }) {
   const { authTokens } = useAuth();
@@ -46,9 +48,11 @@ export function LoginCloseButton() {
     const login = () => navigate('/login',{})
                 
     return (
-      authTokens ?   
+      <Box sx={{'marginLeft':'auto'}}>
+      {authTokens ?  
       <Button onClick={logout}>Poistu</Button> : 
-      <Button onClick={login}>Kirjaudu</Button>
+      <Button onClick={login}>Kirjaudu</Button>}
+      </Box>
     )
   }
 

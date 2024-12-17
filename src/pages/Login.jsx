@@ -61,10 +61,11 @@ export const Login = () => {
             setAuthTokens("OK")
             if (json.confirmed) setAuthConfirm('CONFIRMED')
             else setAuthConfirm()  
+            setSignUpResponse(json)
             } 
         catch (error) {
-            console.error("FetchLogin, virhe:",error);
-            console.error("FetchLogin, error stack:", error.stack);
+            console.error("fetchLogin, virhe:",error);
+            console.error("fetchLogin, error stack:", error.stack);
             setError("apiError",{ message: "Kirjautuminen epäonnistui." });
             }    
         }
@@ -79,18 +80,17 @@ export const Login = () => {
         return <Navigate to={to} replace={true} />
         }
     
-    if (ilmoitus.ok === 'OK' && ilmoitus.message) return (
+    if (signUpResponse.success && signUpResponse.confirmed === true) return (
         <div>
         <h2>Rekisteröityminen onnistui.</h2>
-        <p>{ilmoitus.message}</p>
+        <p>{signUpResponse.message}</p>
         </div>
         )
         
-    /* Huom. Tässä tarvitaan joko painike tai ohjaus vahvistussivulle */  
-    if (ilmoitus.ok === 'Virhe') return (
+    if (!signUpResponse.success && signUpResponse.confirmed === false) return (
         <div>
         <h2>Sähköpostiosoitteen vahvistaminen epäonnistui.</h2>
-        <p>{ilmoitus.message}</p>
+        <p>{signUpResponse.message}</p>
         <Link to="/confirm">Voit pyytää uutta sähköpostiosoitteesi vahvistusviestiä tästä.</Link>
         </div>
         )    

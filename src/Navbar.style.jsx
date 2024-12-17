@@ -7,12 +7,14 @@ export const Nav = styled.nav`
   background-color: #333;
   color: white;
   font-size: 1.25rem;
+  width: 100%;
 `;
 
 export const NavLinks = styled.div.withConfig({
   shouldForwardProp: (prop) => !['menu'].includes(prop),
   })`
   /* Huom. props = css-tyyli */
+  width: 100%;
   display: ${(props) => (props.menu ? props.menu : "none")};
   flex-direction: column;
   align-items: flex-start;

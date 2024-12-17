@@ -6,6 +6,7 @@ import { Anecdotes, anecdotesLoader } from './pages/Anecdotes'
 import { Principles, principlesLoader } from './pages/Principles'
 import { Login } from './pages/Login'
 import { Signup } from './pages/Signup'
+import { Confirmed } from './pages/Confirmed'
 import { LoginCloseButton } from './pages/PrivateLink'
 import { closeFetch } from './components/functions'
 import { AgGrid, aggridLoader } from './pages/AgGrid'
@@ -81,6 +82,7 @@ const router = createBrowserRouter(
     <Route path="aggrid" element={<AgGrid />} loader={aggridLoader} />
     <Route path="login" element={<Login/>} loader={loaderCsrfToken} />
     <Route path="signup" element={<Signup/>} loader={loaderCsrfToken} />
+    <Route path="/confirmed" element={<Confirmed/>}/>
     <Route path="*" element={<h2>404</h2>} />
   </Route>
   ))
