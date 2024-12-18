@@ -1,4 +1,4 @@
-import { csrfUrl, logoutUrl } from './constants';
+import { csrfUrl, logoutUrl, confirmUrl } from './constants';
 
 export const closeFetch = async () => {
     console.log('closeFetch');
@@ -30,3 +30,19 @@ export const loaderCsrfToken = async (setError, setLoading) => {
         console.log('csrf-haku, finally, csrf:', csrf);
     }
 }
+
+export const loaderConfirm = async () => {
+    try {
+        const response = await fetch(confirmUrl, { credentials: "include" });
+        const data = await response.json();
+        console.log(data);
+        return {data, error: null};
+    } catch (error) {
+        console.error(error);
+        return {data: null, error: error};
+    }
+}
+
+
+
+ 

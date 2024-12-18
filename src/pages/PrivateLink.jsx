@@ -23,6 +23,15 @@ export function PublicLink({ ...rest }) {
     );
   }
 
+  export const AdminLink = ({ ...rest }) => {
+    const { authTokens } = useAuth();
+    console.log("PrivateLink,authTokens:"+authTokens+",sessionStorage:"+sessionStorage.tokens);
+    return (
+      authTokens === 'ADMIN' ?  
+      <NavLink {...rest}/> : ''
+    );
+  }
+
 export function LoginCloseButton() {
     const { authTokens,setAuthTokens } = useAuth()
     let navigate = useNavigate()

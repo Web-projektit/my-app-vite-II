@@ -58,7 +58,8 @@ export const Login = () => {
                 setError("password",{ type: 'palvelinvirhe', message: json.message })
                 return
                 }
-            setAuthTokens("OK")
+            if (json.admin) setAuthTokens("ADMIN")
+            else setAuthTokens("USER")
             if (json.confirmed) setAuthConfirm('CONFIRMED')
             else if (json.confirmed === false) setAuthConfirm()  
             setSignUpResponse(json)
@@ -72,7 +73,7 @@ export const Login = () => {
 
     const { state } = useLocation()
     //console.log(`Login,message:${ilmoitus.message},loggedIn:${loggedIn}`)
-    if (authTokens && signUpResponse.confirmed === undefined) {
+    if (authTokens && signUpResponse.confirming === undefined) {
         const referer = state?.location.pathname || '/' 
         const search = state?.location.search || '' 
         const to = `${referer}${search}`
@@ -80,14 +81,18 @@ export const Login = () => {
         return <Navigate to={to} replace={true} />
         }
     
-    if (signUpResponse.success && signUpResponse.confirmed === true) return (
+    if (signUpResponse.success 
+        && signUpResponse.confirmed === true
+        && signUpResponse.confirming) return (
         <div>
         <h2>Rekisteröityminen onnistui.</h2>
         <p>{signUpResponse.message}</p>
         </div>
         )
         
-    if (!signUpResponse.success && signUpResponse.confirmed === false) return (
+    if (!signUpResponse.success 
+        && signUpResponse.confirmed === false
+        && signUpResponse.confirming) return (
         <div>
         <h2>Sähköpostiosoitteen vahvistaminen epäonnistui.</h2>
         <p>{signUpResponse.message}</p>

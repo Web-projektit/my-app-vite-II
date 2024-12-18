@@ -6,13 +6,17 @@ import { Anecdotes, anecdotesLoader } from './pages/Anecdotes'
 import { Principles, principlesLoader } from './pages/Principles'
 import { Login } from './pages/Login'
 import { Signup } from './pages/Signup'
+import { Users } from './pages/Users'
 import { Confirmed } from './pages/Confirmed'
-import { LoginCloseButton } from './pages/PrivateLink'
+import { Confirm } from './pages/Confirm'
+import { Unconfirmed } from './pages/Unconfirmed'
+import { LoginCloseButton, PrivateLink, PublicLink, AdminLink } from './pages/PrivateLink'
+import { Private, Admin } from './pages/PrivateRoute'
 import { closeFetch } from './components/functions'
 import { AgGrid, aggridLoader } from './pages/AgGrid'
 import { FaBars,FaTimes } from "react-icons/fa"
 import logo from './assets/omniavalkea_eitaustaa.png'
-import { loaderCsrfToken } from './components/functions'    
+import { loaderCsrfToken, loaderConfirm } from './components/functions'    
 
 const basename="/projektit_react/react-sovellusmalli"
 
@@ -34,7 +38,8 @@ const Navbar = () => {
       <NavLink to="/contact" activeclassname="active">Contact</NavLink>
       <NavLink to="/anecdotes" activeclassname="active">Anecdotes</NavLink>
       <NavLink to="/principles" activeclassname="active">Principles</NavLink>
-      <NavLink to="/aggrid" activeclassname="active">AgGrid</NavLink>
+      <PrivateLink to="/aggrid" activeclassname="active">AgGrid</PrivateLink>
+      <AdminLink to="/users" activeclassname="active">Users</AdminLink>
       <LoginCloseButton/> 
     </NavLinks>
     <MenuButton onClick={() => setOpenmenu(!openmenu)}>
@@ -81,10 +86,13 @@ const router = createBrowserRouter(
     <Route path="about" element={<About />} />
     <Route path="anecdotes" element={<Anecdotes />} loader={anecdotesLoader} />
     <Route path="principles" element={<Principles />} loader={principlesLoader} />
-    <Route path="aggrid" element={<AgGrid />} loader={aggridLoader} />
+    <Route path="aggrid" element={<PrivateLink><AgGrid/></PrivateLink>} loader={aggridLoader} />
     <Route path="login" element={<Login/>} loader={loaderCsrfToken} />
     <Route path="signup" element={<Signup/>} loader={loaderCsrfToken} />
+    <Route path="users" element={<Admin><Users/></Admin>} loader={loaderConfirm}/>
     <Route path="confirmed" element={<Confirmed/>}/>
+    <Route path="confirm" element={<Private><Confirm/></Private>} loader={loaderConfirm}/>
+    <Route path="unconfirmed" element={<Private><Unconfirmed/></Private>}/>
     <Route path="*" element={<Home />} />
   </Route>
   ), {
