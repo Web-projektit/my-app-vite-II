@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'JukkaA3'
           slot-name: 'Production'
-          package: .
+          package: ./dist
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_85B19ADA600C4C8CA5A27505735B9B07 }}
