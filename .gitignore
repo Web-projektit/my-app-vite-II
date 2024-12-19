@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 public/.htaccess
+react-sovellusmalli
 
 # Editor directories and files
 .vscode/*
