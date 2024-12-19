@@ -58,5 +58,5 @@ jobs:
         with:
           app-name: 'react-sovellusmalli-vite'
           slot-name: 'Production'
-          package: .
+          package: ./dist
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A3860396AB04481D9B91165F37824192 }}
