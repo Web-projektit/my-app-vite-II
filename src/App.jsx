@@ -16,9 +16,10 @@ import { closeFetch } from './components/functions'
 import { AgGrid, aggridLoader } from './pages/AgGrid'
 import { FaBars,FaTimes } from "react-icons/fa"
 import logo from './assets/omniavalkea_eitaustaa.png'
-import { loaderCsrfToken, loaderConfirm } from './components/functions'    
+import { loaderCsrfToken, loaderConfirm } from './components/functions'   
+import { basename } from './components/constants'
 
-const basename="/projektit_react/react-sovellusmalli"
+//const basename="/projektit_react/react-sovellusmalli"
 
 const Home = () => <h2>Home</h2>
 const About = () => <h2>About</h2>
